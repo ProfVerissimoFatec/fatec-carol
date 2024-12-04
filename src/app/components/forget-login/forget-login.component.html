@@ -1,0 +1,229 @@
+<div class="content">
+  <button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
+    {{ !isLinear ? "Enable linear mode" : "Disable linear mode" }}
+  </button>
+  <mat-stepper [linear]="isLinear" #stepper>
+    <mat-step [stepControl]="firstFormGroup" class="firstFormGroup">
+      <form
+        [formGroup]="firstFormGroup"
+        style="
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+        "
+      >
+        <ng-template matStepLabel>Fill out your name</ng-template>
+        <div
+          style="
+            margin: 23px 8px;
+            font-size: 20px;
+            font-weight: 500;
+            align-items: center;
+            display: flex;
+            justify-content: center;
+          "
+        >
+          Por favor, informe seu email:
+        </div>
+        <mat-form-field>
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="firstCtrl" required />
+        </mat-form-field>
+        <div
+          style="
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+          "
+        >
+          <button class="btnProximo" mat-button (click)="onCheckEmail(stepper)">
+            Próximo
+          </button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup" label="Fill out your address">
+      <form [formGroup]="secondFormGroup">
+        <div
+          style="
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            row-gap: 10px;
+          "
+        >
+          <div style="margin: 6px 0px; font-size: 21px; font-weight: 500">
+            Te enviamos um código de verificação
+          </div>
+          <div style="margin: 0px 0px; font-size: 21px">
+            Por favor, verifique seu email!
+          </div>
+        </div>
+        <div class="code-inputs">
+          <input
+            type="text"
+            maxlength="1"
+            class="code-input"
+            [(ngModel)]="code[0]"
+            formControlName="code1"
+          />
+          <input
+            type="text"
+            maxlength="1"
+            class="code-input"
+            [(ngModel)]="code[1]"
+            formControlName="code2"
+          />
+          <input
+            type="text"
+            maxlength="1"
+            class="code-input"
+            [(ngModel)]="code[2]"
+            formControlName="code3"
+          />
+          <input
+            type="text"
+            maxlength="1"
+            class="code-input"
+            [(ngModel)]="code[3]"
+            formControlName="code4"
+          />
+          <input
+            type="text"
+            maxlength="1"
+            class="code-input"
+            [(ngModel)]="code[4]"
+            formControlName="code5"
+          />
+          <input
+            type="text"
+            maxlength="1"
+            class="code-input"
+            [(ngModel)]="code[5]"
+            formControlName="code6"
+          />
+        </div>
+        <div
+          style="
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            margin: 14px 0px;
+          "
+        >
+          <button class="btnProximo" mat-button (click)="onCheckCode(stepper)">
+            Próximo
+          </button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="threeFormGroup" label="Fill out your address">
+      <form [formGroup]="threeFormGroup">
+        <div
+          style="
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            row-gap: 10px;
+          "
+        >
+          <div style="margin: 20px 0px; font-size: 21px">
+            Por favor, Digite a nova senha:
+          </div>
+        </div>
+        <div
+          style="
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            column-gap: 10px;
+            flex-direction: column;
+          "
+        >
+          <div class="formulario__campo">
+            <input
+              formControlName="senha"
+              placeholder="senha"
+              class="campo__escrita"
+              type="password"
+            />
+            <div
+              *ngIf="
+                threeFormGroup.get('senha')?.invalid &&
+                (threeFormGroup.get('senha')?.touched ||
+                  threeFormGroup.get('senha')?.dirty)
+              "
+            >
+              <span
+                class="erro_texto"
+                *ngIf="threeFormGroup.get('senha')?.errors?.['required']"
+                >*Campo Obrigatorio.</span
+              >
+            </div>
+          </div>
+          <div class="formulario__campo">
+            <input
+              formControlName="confirmSenha"
+              placeholder="confirmação de senha"
+              class="campo__escrita"
+              type="password"
+            />
+            <div
+              *ngIf="threeFormGroup.errors?.['passwordsMismatch'] && (threeFormGroup.get('confirmSenha')?.touched || threeFormGroup.get('confirmSenha')?.dirty)"
+            >
+              <span class="erro_texto">As senhas não correspondem.</span>
+            </div>
+          </div>
+        </div>
+        <div
+          style="
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+          "
+        >
+          <button
+            class="btnProximo"
+            mat-button
+            matStepperNext
+            (click)="alterarSenha()"
+          >
+            Próximo
+          </button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <div
+        style="
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          column-gap: 10px;
+        "
+      >
+        <div class="divGif">
+          <img
+            src="../../../assets/img/gifs/feliz.gif"
+            alt="image"
+            class="img"
+          />
+        </div>
+        <p style="font-size: 26px; color: #7ed957; font-weight: 600">
+          Senha Alterada com sucesso!!
+        </p>
+        <p style="font-size: 20px; margin: 0px">
+          Sua senha foi alterada com sucesso.
+        </p>
+        <p style="font-size: 20px; margin: 0px; margin-bottom: 43px">
+          Por favor, faça o login novamente com a sua nova senha!
+        </p>
+      </div>
+    </mat-step>
+  </mat-stepper>
+</div>

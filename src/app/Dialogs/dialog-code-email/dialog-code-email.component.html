@@ -1,0 +1,52 @@
+<div class="contentDialog">
+  <h3 mat-dialog-title>Informe o código de verificação</h3>
+  <div mat-dialog-content>
+    <div class="verification-container">
+      <p>
+        Por favor, insira o código recebido no e-mail informado para autenticar
+        seu cadastro.
+      </p>
+      <div class="code-inputs">
+        <input
+          type="text"
+          maxlength="1"
+          class="code-input"
+          [(ngModel)]="code[0]"
+        />
+        <input
+          type="text"
+          maxlength="1"
+          class="code-input"
+          [(ngModel)]="code[1]"
+        />
+        <input
+          type="text"
+          maxlength="1"
+          class="code-input"
+          [(ngModel)]="code[2]"
+        />
+        <input
+          type="text"
+          maxlength="1"
+          class="code-input"
+          [(ngModel)]="code[3]"
+        />
+        <input
+          type="text"
+          maxlength="1"
+          class="code-input"
+          [(ngModel)]="code[4]"
+        />
+        <input
+          type="text"
+          maxlength="1"
+          class="code-input"
+          [(ngModel)]="code[5]"
+        />
+      </div>
+    </div>
+  </div>
+  <div mat-dialog-actions class="divbtn">
+    <button class="btnOk" mat-button (click)="onClose()">OK</button>
+  </div>
+</div>

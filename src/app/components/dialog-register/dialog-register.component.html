@@ -1,0 +1,164 @@
+<div class="content" *ngIf="registerForm">
+  <div class="title">Criar Conta</div>
+  <div class="line"></div>
+  <form id="cadastro" [formGroup]="registerForm">
+    <div class="pessoais">
+      <h3 style="margin: 0px; margin-bottom: 5px">Dados pessoais</h3>
+      <div class="formulario__campo">
+        <div>
+          <label>Você é: </label>
+          <mat-radio-group
+            formControlName="selectedOption"
+            aria-label="Select an option"
+          >
+            <mat-radio-button value="1">Cliente</mat-radio-button>
+            <mat-radio-button value="2">Prestador</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <div
+          class="formulario__campo"
+          *ngIf="registerForm.get('selectedOption')?.value == '2'"
+        >
+          <div>CPF ou CNPJ</div>
+          <input
+            formControlName="documento"
+            class="campo__escrita"
+            mask="000.000.000-00||00.000.000/0000-00"
+          />
+        </div>
+      </div>
+      <div
+        style="
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          column-gap: 10px;
+        "
+      >
+        <div class="formulario__campo">
+          <div>Nome Completo*</div>
+          <input formControlName="nome" class="campo__escrita" />
+          <div
+            *ngIf="
+              registerForm.get('nome')?.invalid &&
+              (registerForm.get('nome')?.touched ||
+                registerForm.get('nome')?.dirty)
+            "
+          >
+            <span
+              class="erro_texto"
+              *ngIf="registerForm.get('nome')?.errors?.['required']"
+              >*Campo Obrigatorio.</span
+            >
+          </div>
+        </div>
+        <div class="formulario__campo">
+          <div>Nickname*</div>
+          <input formControlName="nickname" class="campo__escrita" />
+          <div
+            *ngIf="
+              registerForm.get('nickname')?.invalid &&
+              (registerForm.get('nickname')?.touched ||
+                registerForm.get('nickname')?.dirty)
+            "
+          >
+            <span
+              class="erro_texto"
+              *ngIf="registerForm.get('nickname')?.errors?.['required']"
+              >*Campo Obrigatorio.</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="formulario__campo">
+        <div>Contato*</div>
+        <input
+          formControlName="telefone"
+          class="campo__escrita"
+          mask="(00) 0 0000 0000"
+          prefix="+55"
+        />
+        <div
+          *ngIf="
+            registerForm.get('telefone')?.invalid &&
+            (registerForm.get('telefone')?.touched ||
+              registerForm.get('telefone')?.dirty)
+          "
+        >
+          <span
+            class="erro_texto"
+            *ngIf="registerForm.get('telefone')?.errors?.['required']"
+            >*Campo Obrigatorio.</span
+          >
+        </div>
+      </div>
+    </div>
+    <div class="cadastro">
+      <h3 style="margin: 0px; margin-bottom: 5px">Dados para Cadastro*</h3>
+      <div class="formulario__campo">
+        <div>Email*</div>
+        <input formControlName="email" class="campo__escrita" />
+        <div
+          *ngIf="
+            registerForm.get('email')?.invalid &&
+            (registerForm.get('email')?.touched ||
+              registerForm.get('email')?.dirty)
+          "
+        >
+          <span
+            class="erro_texto"
+            *ngIf="registerForm.get('email')?.errors?.['required']"
+            >*Campo Obrigatorio.</span
+          >
+        </div>
+      </div>
+      <div
+        style="
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          column-gap: 10px;
+        "
+      >
+        <div class="formulario__campo">
+          <div>Senha*</div>
+          <input
+            formControlName="senha"
+            class="campo__escrita"
+            type="password"
+          />
+
+          <div
+            *ngIf="
+              registerForm.get('senha')?.invalid &&
+              (registerForm.get('senha')?.touched ||
+                registerForm.get('senha')?.dirty)
+            "
+          >
+            <span
+              class="erro_texto"
+              *ngIf="registerForm.get('senha')?.errors?.['required']"
+              >*Campo Obrigatorio.</span
+            >
+          </div>
+        </div>
+        <div class="formulario__campo">
+          <div>Confirme sua senha*</div>
+          <input
+            formControlName="confirmSenha"
+            class="campo__escrita"
+            type="password"
+          />
+          <div
+            *ngIf="registerForm.errors?.['passwordsMismatch'] && (registerForm.get('confirmSenha')?.touched || registerForm.get('confirmSenha')?.dirty)"
+          >
+            <span class="erro_texto">As senhas não correspondem.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="criar_conta">
+      <button (click)="cadastrar()" class="criar">Cadastrar-se</button>
+    </div>
+  </form>
+</div>

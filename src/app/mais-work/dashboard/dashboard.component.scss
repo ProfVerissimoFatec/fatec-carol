@@ -1,0 +1,53 @@
+.conteiner{
+    padding: 30px;
+}
+
+.title{
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.headerVisao{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    row-gap: 20px;
+    justify-content: space-between;
+}
+.card{
+    width: 320px;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: var(--menu-background-color);
+}
+.titleCard{
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+.views{
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--text-color);
+}
+.material-icons {
+    font-size: 36px;
+}
+.dashboard{
+    background-color: var(--menu-background-color);
+    border-radius: 10px;
+    padding: 10px;
+}
+.mat-icon {
+    height: 48px;
+    width: 51px;
+}
+
+// #myChart{
+//     display: block;
+//         box-sizing: border-box;
+//         width: auto !important; 
+//         height: 276px !important
+// }

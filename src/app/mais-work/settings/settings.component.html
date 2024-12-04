@@ -1,0 +1,15 @@
+<div class="conteiner">
+    <div class="body-perfil">
+        <div *ngIf="loginInfo">
+            <h1>Informações do Login</h1>
+            <p><strong>Nome:</strong> {{ loginInfo.user.nome }}</p>
+            <p><strong>Email:</strong> {{ loginInfo.user.email }}</p>
+            <p><strong>Nickname:</strong> {{ loginInfo.user.nickname }}</p>
+          
+            <h2>Informações do Perfil</h2>
+            <p><strong>Descrição:</strong> {{ loginInfo.perfil.descricao }}</p>
+            <p><strong>Região:</strong> {{ loginInfo.perfil.regiaoHabita }}</p>
+          </div>
+          
+    </div>
+</div>

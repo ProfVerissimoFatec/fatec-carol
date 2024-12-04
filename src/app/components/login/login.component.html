@@ -1,0 +1,94 @@
+<img class="background-img" src="../../../assets/img/img_fundo.gif" />
+<div class="content">
+  <div class="separation">
+    <div class="body_login">
+      <div class="container-login">
+        <div class="elements">
+          <img
+            src="../../../assets/img/img-logo.png"
+            alt="image"
+            class="img-logo"
+          />
+          <form class="principal" id="login" [formGroup]="loginForm">
+            <!-- <div
+              style="display: flex; flex-direction: column; margin-bottom: 20px"
+            >
+              <input name="email" ngModel required formControlName="email" />
+            </div> -->
+            <div style="display: flex; flex-direction: column; row-gap: 20px">
+              <div class="example-container">
+                <mat-form-field>
+                  <mat-label>E-mail</mat-label>
+                  <input
+                    matInput
+                    placeholder="pat@example.com"
+                    formControlName="email"
+                    (blur)="updateErrorMessage()"
+                    required
+                  />
+                  <mat-error *ngIf="loginForm.get('email')?.invalid">
+                    {{ errorMessage }}
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="input">
+                <mat-form-field>
+                  <mat-label>Senha</mat-label>
+                  <input
+                    matInput
+                    name="senha"
+                    formControlName="senha"
+                    required
+                    [type]="hide ? 'password' : 'text'"
+                  />
+                  <button
+                    mat-icon-button
+                    matSuffix
+                    (click)="clickEvent($event)"
+                    [attr.aria-label]="'Hide password'"
+                    [attr.aria-pressed]="hide"
+                  >
+                    <mat-icon>{{
+                      hide ? "visibility_off" : "visibility"
+                    }}</mat-icon>
+                  </button>
+                </mat-form-field>
+              </div>
+            </div>
+            <!-- <div
+              style="display: flex; flex-direction: column; margin-bottom: 40px"
+            >
+              <h3 style="margin: 0px; margin-bottom: 5px">Senha</h3>
+              <input
+                name="senha"
+                required
+                formControlName="senha"
+                type="password"
+              />
+            </div> -->
+            <button class="btn-entrar" (click)="login()">
+              Entrar <mat-icon style="color:white !important">logout</mat-icon>
+            </button>
+          </form>
+        </div>
+        <div class="link">
+          <div class="register-wrapper">
+            <a class="conta" (click)="openRegister()">Criar conta</a>
+          </div>
+
+          <div class="register-wrapper">
+            <a (click)="openForget()"> Esqueci minha senha</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="body_text">
+      <div class="text_log-in">Conecte-se</div>
+      <div class="text_text">
+        E tenha um mundo de serviços personalizados ao seu alcance. E encontre o
+        seu próximo
+        <img src="../../../assets/img/nome-projeto.jpg" style="width: 200px" />
+      </div>
+    </div>
+  </div>
+</div>

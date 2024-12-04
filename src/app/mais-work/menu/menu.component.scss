@@ -1,0 +1,97 @@
+.menu {
+    // background-color: rgb(239 117 55 / 84%);
+    background-color: #FFFFFF;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+    }
+  
+    img {
+        margin-bottom: 30px;
+        margin-top: 30px;
+    }
+    
+    .collapsed-margin{
+        margin-top: 40px;    
+    }
+    
+    .textTollBar {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    
+    
+.mat-mdc-nav-list .mat-mdc-list-item.mdc-list-item--activated {
+    background-color: #f45e13 ;
+}
+.mat-mdc-list-base {
+    display: block;
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px !important;
+    padding: 0px 10px;
+}
+
+
+.menu-item mat-icon,
+.menu-item span{
+    color: black !important;
+}
+.menu-item {
+    background-color: #7ed95782 !important; /* Cor de fundo com opacidade para itens não ativos */
+    color: black !important; /* Texto preto para itens não ativos */
+}
+.menu-item:hover {
+    background-color: #7ed957af !important; /* Cor de fundo com mais opacidade ao passar o mouse */
+}
+
+.active-menu-item {
+    background-color: #95EA59 !important; /* Cor de fundo sólida para o item ativo */
+    color: rgba(228, 228, 228, 0.753) !important; /* Texto branco para o item ativo */
+}
+
+
+.active-menu-item mat-icon,
+.active-menu-item span {
+    color: white !important; /* Cor branca para ícone e texto do item ativo */
+}
+
+
+.logout-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: auto; /* Empurra o ícone de logout para a parte inferior */
+    margin: 30px 0; /* Adiciona algum espaçamento ao redor do ícone de logout */
+    column-gap: 10px;
+
+    img{
+        margin-bottom: 0px !important;
+  
+    margin-top: 0px !important;
+}
+
+  }
+
+
+  .mdc-list-item--with-leading-icon:hover .mdc-list-item__start {
+    color: white !important;
+}
+.mdc-list-item:hover .mdc-list-item__primary-text {
+  color: white !important;
+}
+
+span{
+  font-weight: 500;
+  font-size: 18px;
+}
+
+.mat-mdc-list-item.mdc-list-item--with-leading-icon.mdc-list-item--with-one-line {
+    height: 56px;
+    border-radius: 10px !important;
+}

@@ -1,0 +1,189 @@
+<div *ngIf="isEditVisible" class="edit">
+  <div class="background-overlay" (click)="hideEdit()" [ngClass]="{
+      'fade-in-overlay': isAnimating,
+      'fade-out-overlay': !isAnimating
+    }"></div>
+  <div class="containerEdit animate"></div>
+  <div class="body-edit" [ngClass]="{ animate: isAnimating, 'animate-leave': !isAnimating }">
+    <form class="principal" id="newAnnouncement" [formGroup]="announcement">
+      <div style="display: flex; flex-direction: column; row-gap: 20px;">
+        <div class="headerPerfil">
+          <img>
+          <div style="display: flex; align-items: center; column-gap: 5px;">
+            <mat-icon>alternate_email</mat-icon>
+            {{ userName }}
+          </div>
+        </div>
+        <div>
+          <label for="imageInput" class="custom-file-upload">
+            + Adicionar Imagem
+          </label>
+          <input
+            type="file"
+            id="imageInput"
+            accept="image/*"
+            multiple
+            (change)="onFileChange($event)"
+            #fileInput
+            style="display: none;"
+          />
+          <p *ngIf="errorMessage" style="color: red;">{{ errorMessage }}</p>
+          <div class="image-preview" *ngIf="imageUrls.length > 0">
+            <div class="image-container" *ngFor="let imageUrl of imageUrls; let i = index">
+              <img [src]="imageUrl" alt="Selected Image" class="imagem" />
+              <button type="button" class="remove-btn" (click)="removeImage(i)">
+                ×
+              </button>
+            </div>
+          </div>
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+          <div class="example-container">
+            <mat-form-field>
+              <mat-label>Titulo</mat-label>
+              <input matInput placeholder="Aulas de Inglês" formControlName="tituloAnuncio" required />
+            </mat-form-field>
+          </div>
+          <div class="example-form">
+            <mat-form-field class="example-full-width">
+              <mat-label style="margin-bottom: 20px;">Descrição</mat-label>
+              <textarea matInput placeholder="Ex. It makes me feel..." formControlName="descricaoAnuncio" style="height: 253px;" required></textarea>
+            </mat-form-field>
+          </div>
+          <div class="example-container">
+            <mat-form-field floatLabel="always">
+              <mat-label>Valor</mat-label>
+              <input matInput type="number" class="example-right-align" placeholder="0" formControlName="valorAnuncio" />
+              <span matTextPrefix>R$&nbsp;</span>
+              <span matTextSuffix>.00</span>
+            </mat-form-field>
+          </div>
+          <div class="conteinerTopico">
+            <div style="font-size: 16px;">Adicionar Categoria para o Anúncio</div>
+            <div
+              style="display: flex;
+                     align-items: center;
+                     flex-wrap: wrap;
+                     gap: 5px;
+                     margin: 20px;
+                     justify-content: center; height: 100px; overflow: auto;">
+              <div *ngFor="let categoria of categorias"
+                   [ngStyle]="{'background-color': categoria.backgroundcolor}"
+                   [ngClass]="{'selected': selectedCategorias.includes(categoria)}"
+
+                   (click)="toggleCategoria(categoria)"
+                   style="padding: 10px; margin: 5px; border-radius: 10px; border: 2px solid transparent;  color: var(--text-color);">
+                {{ categoria.nome_categoria }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="button">
+          <button class="btnCreateAnuncio" (click)="createAnuncio()">
+            Criar Anúncio
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="conteiner">
+  <div class="header">
+    <div class="title">ANÚNCIOS</div>
+
+    <div id="divBusca">
+      <mat-icon class="searchIcon">search</mat-icon>
+      <input type="text" id="txtBusca" placeholder="Buscar..." (input)="buscarAnuncio($event)" />
+    </div>
+
+    <div class="topicos">
+      <div class="title">TÓPICOS</div>
+      <div
+            style="display: flex;
+                   align-items: center;
+                   flex-wrap: wrap;
+                   gap: 5px;
+                   margin: 20px;
+                   justify-content: center; height: 100px; overflow: auto;">
+                   <div *ngFor="let categoria of categorias" 
+                   [ngStyle]="{'background-color': categoria.backgroundcolor}" 
+                   [ngClass]="{'categoria-selecionada': categoriaSelecionada?.id_categoria === categoria.id_categoria}"
+                   (click)="filtrarPorCategoria(categoria)"
+                   style="padding: 10px; margin: 5px; border-radius: 10px; border: 2px solid transparent;">
+                   {{ categoria.nome_categoria }}
+                  </div>
+          </div>
+          <button *ngIf="categoriaSelecionada" (click)="limparFiltro()" class="limparFiltro">
+            Limpar Filtro
+          </button>
+    </div>
+  </div>
+  <div >
+    <div *ngIf="anuncios && anuncios.length > 0" style="margin: 20px 0px; display: flex; flex-direction: column; row-gap: 20px; align-items: center; justify-content: center;">
+      <div *ngFor="let anuncio of anuncios" class="card">
+        <!-- Conteúdo do anúncio -->
+        <div style="display:flex; align-items:center; justify-content:space-between">
+          <div class="perfil">
+            <img *ngIf="anuncio.perfil.imagemperfil" 
+                 [src]="'data:image/jpeg;base64,' + anuncio.perfil.imagemperfil" 
+                 alt="Imagem do perfil" class="imgPerfil"/>
+            <h4 style="width: 150px;">{{ anuncio.perfil.nome }}</h4>
+        </div>
+          <div class="categorias">
+            <div *ngFor="let categoria of anuncio.categorias" 
+                 class="categoria-item"
+                 [ngStyle]="{'background-color': categoria.backgroundcolor}">
+             # {{ categoria.nome_categoria }}
+            </div>
+          </div>
+        </div>
+        <div class="headerAnuncio">
+          <div class="allanuncio">
+            <div class="info">
+              <h2 style="word-wrap: break-word; word-break: break-word;white-space: normal;">{{ anuncio.titulo_anuncio }}</h2>
+              <p style="word-wrap: break-word; word-break: break-word;white-space: normal;">{{ anuncio.descricao_anuncio }}</p>
+              <p>Valor: {{ anuncio.valor_anuncio | currency:'BRL' }}</p>
+            </div>
+          </div>
+          <div class="imagens"> 
+            <img class="imagemAnuncio" *ngFor="let imagem of anuncio.imagens" [src]="'data:image/jpeg;base64,' + imagem.imagem" alt="Imagem do anúncio" />
+          </div>
+        </div>
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+          <div class="comments">
+            <button 
+            (click)="updateReaction(anuncio.id_anuncio, 'curtidas')" 
+            [ngClass]="{'red-icon': clickedCurtidas[anuncio.id_anuncio] || getHave(anuncio, 1)}">
+            <mat-icon>favorite</mat-icon>
+            {{ anuncio.curtidas_count }}
+          </button>
+          
+          <button 
+            (click)="updateReaction(anuncio.id_anuncio, 'likes')" 
+            [ngClass]="{'like': clickedLikes[anuncio.id_anuncio] || getHave(anuncio, 2)}">
+            <mat-icon>thumb_up</mat-icon>
+            {{ anuncio.likes_count }}
+          </button>
+          
+          <button 
+            (click)="updateReaction(anuncio.id_anuncio, 'deslikes')" 
+            [ngClass]="{'dislike': clickedDeslikes[anuncio.id_anuncio] || getHave(anuncio, 3)}">
+            <mat-icon>thumb_down</mat-icon>
+            {{ anuncio.deslikes_count }}
+          </button>
+          </div>
+          <div>
+            <button class="contato" *ngIf="anuncio.perfil.telefone" (click)="abrirWhatsapp(anuncio.perfil.telefone)">
+              <div class="icon_whats"></div>
+              <!-- Entrar em contato -->
+          </button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <button class="adicionarAnuncio" *ngIf="!isTipoTrue" (click)="newPost()">
+      <mat-icon>add</mat-icon>
+    </button>
+</div>

@@ -1,0 +1,68 @@
+.code-inputs {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 40px 0px;
+}
+  
+  .code-input {
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  .forms{
+    display: flex;
+    flex-direction: column;
+  
+  }
+  .formulario__campo{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+    input{
+      padding: 10px 10px;
+      border: 1px solid #172131;
+      border-radius: 10px;
+      font-size: 16px;
+  }
+  }
+  .divGif{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    .img{
+      width: 100px;
+  }
+}
+  #toggle-linear{
+    display: none;
+  }
+  .firstFormGroup{
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+  }
+  .btnProximo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 150px;
+    font-size: 15px;
+    background-color: #7ed957;
+    color: white !important;
+  }
+  .btnProximo:hover{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 170px;
+    transition:cubic-bezier(0.075, 0.82, 0.165, 1);
+    font-size: 18px;
+    background-color: #7ed957;
+    color: white;
+  }

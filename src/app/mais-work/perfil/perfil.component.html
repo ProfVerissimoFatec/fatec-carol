@@ -1,0 +1,183 @@
+<div *ngIf="isEditVisible" class="edit">
+  <div class="background-overlay" (click)="hideEdit()"
+    [ngClass]="{
+      'fade-in-overlay': isAnimating,
+      'fade-out-overlay': !isAnimating
+    }">
+  </div>
+
+  <div class="containerEdit animate">
+  </div>
+  <div class="body-edit"
+    [ngClass]="{ animate: isAnimating, 'animate-leave': !isAnimating }">
+    <form class="principal" id="newAnnouncement" [formGroup]="profileForm">
+      <div style="display: flex; flex-direction: column; row-gap: 20px;">
+        <div>
+          <label for="profileImageInput" class="custom-file-upload">
+            + Adicionar Imagem de Perfil
+          </label>
+          <input
+            type="file"
+            id="profileImageInput"
+            accept="image/*"
+            (change)="onProfileImageChange($event)"
+            style="display: none;"
+          />
+          <p *ngIf="errorMessage" style="color: red;">{{ errorMessage }}</p>
+          
+          <div class="image-preview" *ngIf="profileImageUrl">
+            <div class="image-container">
+              <img [src]="profileImageUrl" alt="Selected Profile Image" class="imagemPerfil" />
+              <button type="button" class="remove-btn" (click)="removeProfileImage()">×</button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Controle de Upload para a Imagem de Fundo -->
+        <div>
+          <label for="backgroundImageInput" class="custom-file-upload">
+            + Adicionar Imagem de Fundo
+          </label>
+          <input
+            type="file"
+            id="backgroundImageInput"
+            accept="image/*"
+            (change)="onBackgroundImageChange($event)"
+            style="display: none;"
+          />
+          <p *ngIf="errorMessage" style="color: red;">{{ errorMessage }}</p>
+          
+          <div class="image-preview" *ngIf="backgroundImageUrl">
+            <div class="image-container">
+              <img [src]="backgroundImageUrl" alt="Selected Background Image" class="imagem"  style="width: 19vw !important;"/>
+              <button type="button" class="remove-btn" (click)="removeBackgroundImage()">×</button>
+            </div>
+          </div>
+        </div>
+        <!-- Campo para Descrição, Região e Telefone -->
+        <div class="div-form">
+          <mat-form-field class="example-full-width">
+            <mat-label>Descrição</mat-label>
+            <textarea matInput formControlName="descricao" placeholder="Descrição do perfil" style="height: 257px;"></textarea>
+          </mat-form-field>
+        </div>
+
+        <div class="div-form">
+          <mat-form-field>
+            <mat-label>Região que Habita</mat-label>
+            <input matInput formControlName="regiaoHabita" required />
+          </mat-form-field>
+        </div>
+
+        <div class="div-form">
+          <mat-form-field>
+            <mat-label>Telefone</mat-label>
+            <input matInput formControlName="telefone" required />
+          </mat-form-field>
+        </div>
+        <div class="actions">
+          <button mat-raised-button class="btnSalvar" (click)="saveChanges()">Salvar Edição</button>
+        </div>
+
+      </div>
+    </form>
+  </div>
+</div>
+
+  <div class="conteiner">
+    <div class="header">
+      <div class="background-fundo"  [ngStyle]="{
+        'background-image': backgroundImageUrl ? 'url(' + backgroundImageUrl + ')' : 'var(--plano_fundo)',
+        'height': backgroundImageUrl ? 'auto' : '254px'
+      }">
+        <div style="align-items: center; justify-content: center; display: flex; flex-direction: column; row-gap: 20px;">
+          <div class="avatar-container">
+            <div
+            class="foto-perfil"
+            [ngStyle]="{
+              'background-image': profileImageUrl ? 'url(' + profileImageUrl + ')' : 'var(--foto_perfil)',
+              'background-color': profileImageUrl ? 'transparent' : '#D0D0D0',
+            }"
+          ></div>
+            <div class="edit-icon">
+              <mat-icon (click)="edit()">edit</mat-icon>
+            </div>
+          </div>
+          <div class="nome">{{ profileForm.get('nome')?.value }}</div>
+          <!-- <div style="display: flex; align-items: flex-end; justify-content: end; width: 100%;">
+            <button class="more-icon" [matMenuTriggerFor]="menu" (click)="toggleIcon()"><mat-icon>more_horiz</mat-icon></button>
+
+            <mat-menu #menu="matMenu" (closed)="resetIcon()"> 
+              <button mat-menu-item>Item 1</button>
+  <button mat-menu-item>Item 2</button>
+            </mat-menu>
+          </div> -->
+        </div>
+      </div>
+    </div>
+
+    <div class="body">
+        <div class="presentation">
+            <div style="display: flex; align-items: flex-start; justify-content: flex-start; width: 100%;">
+                <div class="title">Apresentação</div>
+            </div>
+            <form class="principal" [formGroup]="profileForm">
+                <div class="example-form">
+                    <mat-form-field class="full-width">
+                      <mat-label>Descrição</mat-label>
+                      <textarea matInput formControlName="descricao" style="height:257px;"></textarea>
+                    </mat-form-field>
+                </div>
+                <div class="example-container">
+                    <mat-form-field class="mat-form-field">
+                      <mat-label>Região que Habita</mat-label>
+                      <input matInput formControlName="regiaoHabita" />
+                    </mat-form-field>
+                </div>
+                <div class="example-container">
+                    <mat-form-field class="mat-form-field">
+                      <mat-label>Telefone</mat-label>
+                      <input matInput formControlName="telefone"   mask="(00) 0 0000 0000"
+                      prefix="+55" />
+                    </mat-form-field>
+                </div>
+            </form>
+        </div>
+        <div class="anuncios-perfil">
+          <div class="title">{{ isTipoTrue ? 'Anúncios Curtidos' : 'Meus Anúncios' }}</div>
+        
+          <div *ngFor="let anuncio of anuncios" class="card">
+            <div style="display: flex; align-items: flex-end; justify-content: flex-end;">
+              <button *ngIf="!isTipoTrue" (click)="deletarAnuncio(anuncio.id_anuncio)" class="delet">
+                <mat-icon>close</mat-icon>
+              </button>
+            </div>
+            <div style="display:flex; align-items:center; justify-content:space-between">
+              <div class="perfil">
+                <img *ngIf="anuncio.perfil.imagemperfil" 
+                 [src]="'data:image/jpeg;base64,' + anuncio.perfil.imagemperfil" 
+                 alt="Imagem do perfil" class="imgPerfil"/>
+                 <h4>{{ anuncio.perfil.nome }}</h4>
+              </div>
+            </div>
+            <h2 style="word-wrap: break-word; word-break: break-word;white-space: normal;">{{ anuncio.titulo_anuncio }}</h2>
+            <p style="word-wrap: break-word; word-break: break-word;white-space: normal;">{{ anuncio.descricao_anuncio }}</p>
+            <p>Valor: {{ anuncio.valor_anuncio | currency:'BRL' }}</p>
+            <div class="imagens">
+              <img class="imagemAnuncio" 
+                   *ngFor="let imagem of anuncio.imagens"
+                   [src]="'data:image/jpeg;base64,' + imagem.imagem" alt="Imagem do anúncio"
+                   />
+            </div>
+            <div>
+              <mat-icon 
+              *ngIf="isTipoTrue" 
+              [ngClass]="{'red-icon': anuncio.isLiked}" 
+              (click)="toggleCurtida(anuncio)">
+              favorite
+          </mat-icon>
+            </div>
+          </div>
+        </div>
+  </div>
+</div>

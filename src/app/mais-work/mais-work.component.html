@@ -1,0 +1,56 @@
+<mat-toolbar class="met-elevation-z3">
+  <mat-sidenav
+    opened
+    mode="side"
+    [style.width]="sidenavWidth()"
+    style="height: 100vh"
+  >
+    <app-menu [collapsed]="collapsed()" />
+  </mat-sidenav>
+
+  <button mat-icon-button>
+    <mat-icon>menu</mat-icon>
+  </button>
+
+  <div class="textTollBar" [ngStyle]="{ 'margin-left': sidenavWidth() }">
+    <button mat-icon-button (click)="collapsed.set(!collapsed())">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <div
+      style="display: flex; align-items: center; font-size: 15px; font-weight: 500; column-gap: 10px;">
+      
+      <img *ngIf="profileImageUrl" [src]="profileImageUrl" alt="Profile Image" class="user" 
+      style="width: 40px; height: 40px; border-radius: 50%;" />
+      
+      <mat-icon *ngIf="!profileImageUrl" class="user" style="margin-right: 5px">account_circle</mat-icon>
+    </div>
+  </div>
+
+  {{ userName }}
+
+  <!-- Ícone que alterna ao clicar -->
+  <button mat-icon-button [matMenuTriggerFor]="menu" (click)="toggleIcon()" style="padding: 0px; display: flex; align-items: center; justify-content: center; margin-right: 40px;">
+    <img *ngIf="!isIconToggled" src="../../assets/img/stat_minus_1_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg">
+    <img *ngIf="isIconToggled" src="../../assets/img/stat_1_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg"/>
+  </button>
+
+  <mat-menu #menu="matMenu" (closed)="resetIcon()"> 
+    <button mat-menu-item (click)="onLogout()" style="display: flex; align-items: center; justify-content: center;">
+      <mat-icon class="logout-icon-black" style="display: flex; align-items: center; justify-content: center;">logout</mat-icon>
+      Logout
+    </button>
+  </mat-menu>
+  
+
+  <!-- Botão de alternância de modo escuro -->
+  <button mat-icon-button (click)="toggleDarkMode()" style="padding-left: 5px;">
+    <mat-icon *ngIf="!isDarkMode">dark_mode</mat-icon> <!-- Ícone de lua -->
+    <mat-icon *ngIf="isDarkMode">light_mode</mat-icon> <!-- Ícone de sol -->
+  </button>
+</mat-toolbar>
+
+<mat-sidenav-container>
+  <mat-sidenav-content class="content" [style.margin-left]="sidenavWidth()">
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

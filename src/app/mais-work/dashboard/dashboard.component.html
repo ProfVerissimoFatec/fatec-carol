@@ -1,0 +1,53 @@
+<div class="conteiner">
+    <div class="title">Visão Geral</div>
+    <br />
+    <div style="  
+    display: flex;
+    flex-direction: column;
+    row-gap: 50px;">
+
+        <div class="headerVisao">
+          <div class="card">
+            <div style="display: flex; align-items: center; column-gap: 5px;">
+              <mat-icon>favorite</mat-icon>
+              <div style="display: flex; flex-direction: column;">
+                <div class="titleCard">Número de curtidas de todos os anúncios</div>
+                <div class="views">{{ totalCurtidas }} curtidas</div>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div style="display: flex; align-items: center; column-gap: 5px;">
+              <mat-icon>thumb_up</mat-icon>
+              <div style="display: flex; flex-direction: column;">
+                <div class="titleCard">Número de likes de todos os anúncios</div>
+                <div class="views">{{ totalLikes }} likes</div>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div style="display: flex; align-items: center; column-gap: 5px;">
+              <mat-icon>thumb_down</mat-icon>
+              <div style="display: flex; flex-direction: column;">
+                <div class="titleCard">Número de dislikes de todos os anúncios</div>
+                <div class="views">{{ totalDeslikes }} dislikes</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="dashboard">
+            <div>
+                <h2>Visão Geral de anúncios por dia</h2>
+                <canvas id="myChart" width="300" height="75"></canvas>
+              </div>
+            
+        </div>
+
+        <div class="dashboard">
+              <div>
+                <h2>Visão Geral de anúncios por mês</h2>
+                <canvas id="barChart" width="300" height="75"></canvas>
+              </div>
+        </div>
+       
+    </div>
